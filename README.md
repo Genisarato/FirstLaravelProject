@@ -36,13 +36,3 @@ Through this project, I'm familiarizing myself with Laravel's fundamentals, incl
 5.  **Start the server:** `php artisan serve`
 
 Visit `http://127.0.0.1:8000` in your browser.
-
----
-
-## 📞 Contact
-
-Your Full Name - [Your Email or LinkedIn Profile]
-
-[Your GitHub Profile](https://github.com/YourGitHubUsername)
-
----

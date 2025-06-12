@@ -1,0 +1,159 @@
+/* Variables de color */
+:root {
+    --color-blau-escola: #214371; /* Blau fosc per a la capçalera */
+    --color-groc-fons: #FFFADD; /* Groc molt suau per al body */
+    --color-groc-accent: #FFD700; /* Groc brillant per a accents */
+    --color-gris-text: #444444; /* Gris fosc per al text general */
+    --color-blanc: #FFFFFF;
+    --color-gris-clar-fons: #F8F8F8; /* Gris clar per a targetes/seccions */
+}
+
+/* public/css/estilPrincipal.css */
+
+/* --- INICI: ASSEGURAR QUE LA PÀGINA OCUPA TOTA L'ALTURA --- */
+
+/* 1. Reset bàsic per eliminar marges i paddings per defecte del navegador */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* CRUCIAL: Fa que html i body ocupin el 100% de l'altura del viewport */
+    width: 100%;  /* Assegura el 100% de l'amplada */
+    overflow-x: hidden; /* Evita desplaçament horitzontal si no es vol */
+}
+
+/* 2. El body com a contenidor flexbox que s'estira a 100% de l'altura del viewport */
+body {
+    box-sizing: border-box; /* Bona pràctica */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-groc-fons); /* El fons de la pàgina */
+    padding-top: 70px; /* Espai per a la capçalera fixa */
+    color: var(--color-gris-text);
+    line-height: 1.6;
+
+    /* Aquestes 3 línies són CLAU per al "sticky footer" */
+    display: flex;         /* Habilita Flexbox */
+    flex-direction: column; /* Organitza els fills (header, main, footer) en columna */
+    min-height: 100vh;     /* El body ocuparà com a mínim tota l'altura de la finestra */
+}
+
+/* 3. El contingut principal creix per omplir l'espai restant */
+.content-wrapper {
+    flex-grow: 1; /* Fa que el main s'expandeixi i ocupi tot l'espai vertical disponible */
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* 4. El peu de pàgina sempre al fons (si el contingut és curt) */
+footer {
+    margin-top: auto; /* Empenya el footer a la part inferior de l'espai flex si hi ha espai addicional */
+    /* ... la resta dels teus estils de footer ... */
+    text-align: center;
+    padding: 20px;
+    background-color: var(--color-blau-escola);
+    color: var(--color-blanc);
+    font-size: 0.9em;
+    width: 100%; /* Assegura que el footer ocupa tota l'amplada */
+    box-sizing: border-box; /* Inclou el padding en l'amplada */
+}
+
+/* --- FI: ASSEGURAR QUE LA PÀGINA OCUPA TOTA L'ALTURA --- */
+
+
+/* Estils de la capçalera (ja els tenies) */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-blau-escola);
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+    width: 100%; /* Aquesta línia ja la tens, assegura que el header ocupa tota l'amplada */
+}
+
+.header-title h1 {
+    color: var(--color-blanc);
+    margin: 0;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: var(--color-gris-clar-fons);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.welcome-section h2 {
+    color: var(--color-blau-escola);
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+.sections-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: var(--color-blanc);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 30px;
+    text-align: center;
+    flex: 1;
+    min-width: 300px;
+    max-width: 45%;
+    box-sizing: border-box;
+}
+
+.card h3 {
+    color: var(--color-blau-escola);
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.card p {
+    color: var(--color-gris-text);
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--color-groc-accent);
+    color: var(--color-blau-escola);
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #FFC107;
+    color: var(--color-blau-escola);
+}
+
+/* Responsivitat bàsica */
+@media (max-width: 768px) {
+    .sections-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card {
+        max-width: 90%;
+    }
+    .header-title h1 {
+        font-size: 1.4em;
+    }
+}

@@ -76,6 +76,11 @@ class SchoolController extends Controller
         ]);
         $school->update($validatedData);
         return redirect()->route('schools.index')->with('success', 'Escola actualtizada correctament.');
+
+        /*
+         * El punt del route ens indica el path dins de la carpeta de resources/views/ el que sigue, si volguessim tenir més d'una
+         * vista, podriem directament ficar schools. el que sigui, indiquem quina vista dins del path tornem.
+         */
     }
 
     /**

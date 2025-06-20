@@ -56,9 +56,10 @@ class SchoolController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(): View
+    public function edit($id): View
     {
-        return view('schools.update');
+        $school = School::findOrFail($id);
+        return view('schools.update', compact('school'));
     }
 
     /**

@@ -1,66 +1,63 @@
 /* Variables de color */
 :root {
-    --color-blau-escola: #214371; /* Blau fosc per a la capçalera */
-    --color-groc-fons: #FFFADD; /* Groc molt suau per al body */
-    --color-groc-accent: #FFD700; /* Groc brillant per a accents */
-    --color-gris-text: #444444; /* Gris fosc per al text general */
+    --color-blau-escola: #6ca0dc; /* blau més suau que el #214371 original */
+    --color-groc-fons: #FFFADD;
+    --color-groc-accent: #FFD700;
+    --color-gris-text: #444444;
     --color-blanc: #FFFFFF;
-    --color-gris-clar-fons: #F8F8F8; /* Gris clar per a targetes/seccions */
+    --color-gris-clar-fons: #F8F8F8;
 }
 
-/* public/css/estilPrincipal.css */
-
-/* --- INICI: ASSEGURAR QUE LA PÀGINA OCUPA TOTA L'ALTURA --- */
-
-/* 1. Reset bàsic per eliminar marges i paddings per defecte del navegador */
+/* Reset bàsic */
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%; /* CRUCIAL: Fa que html i body ocupin el 100% de l'altura del viewport */
-    width: 100%;  /* Assegura el 100% de l'amplada */
-    overflow-x: hidden; /* Evita desplaçament horitzontal si no es vol */
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
 }
 
-/* 2. El body com a contenidor flexbox que s'estira a 100% de l'altura del viewport */
+/* Body com a contenidor flexbox */
 body {
-    box-sizing: border-box; /* Bona pràctica */
+    box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--color-groc-fons); /* El fons de la pàgina */
-    padding-top: 70px; /* Espai per a la capçalera fixa */
+    background-color: var(--color-groc-fons);
+    padding-top: 70px; /* Altura header */
+    padding-bottom: 55px; /* Altura footer, ajusta si cal */
     color: var(--color-gris-text);
     line-height: 1.6;
-
-    /* Aquestes 3 línies són CLAU per al "sticky footer" */
-    display: flex;         /* Habilita Flexbox */
-    flex-direction: column; /* Organitza els fills (header, main, footer) en columna */
-    min-height: 100vh;     /* El body ocuparà com a mínim tota l'altura de la finestra */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* 3. El contingut principal creix per omplir l'espai restant */
+/* Contingut principal */
 .content-wrapper {
-    flex-grow: 1; /* Fa que el main s'expandeixi i ocupi tot l'espai vertical disponible */
+    flex-grow: 1;
     max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 20px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
-/* 4. El peu de pàgina sempre al fons (si el contingut és curt) */
+/* Footer */
+/* Manté el footer estàtic, no fix, a sota del contingut */
 footer {
-    margin-top: auto; /* Empenya el footer a la part inferior de l'espai flex si hi ha espai addicional */
-    /* ... la resta dels teus estils de footer ... */
-    text-align: center;
-    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background-color: var(--color-blau-escola);
     color: var(--color-blanc);
     font-size: 0.9em;
-    width: 100%; /* Assegura que el footer ocupa tota l'amplada */
-    box-sizing: border-box; /* Inclou el padding en l'amplada */
+    text-align: center;
+    padding: 15px 20px;
+    z-index: 1100;
+    box-sizing: border-box;
 }
 
-/* --- FI: ASSEGURAR QUE LA PÀGINA OCUPA TOTA L'ALTURA --- */
-
-
-/* Estils de la capçalera (ja els tenies) */
+/* Capçalera fixa */
 .header {
     display: flex;
     justify-content: center;
@@ -73,7 +70,7 @@ footer {
     right: 0;
     z-index: 1000;
     box-sizing: border-box;
-    width: 100%; /* Aquesta línia ja la tens, assegura que el header ocupa tota l'amplada */
+    width: 100%;
 }
 
 .header-title h1 {
@@ -83,68 +80,102 @@ footer {
     text-align: center;
 }
 
-.welcome-section {
-    text-align: center;
-    margin-bottom: 40px;
-    padding: 20px;
-    background-color: var(--color-gris-clar-fons);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+/* Wrapper que ocupa tota l'alçada restant després de la capçalera i footer */
+.form-wrapper {
+    flex-grow: 1;
+    max-width: calc(100% - 100px);
+    margin: 20px auto 30px auto;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: auto;
 }
 
-.welcome-section h2 {
-    color: var(--color-blau-escola);
-    margin-bottom: 10px;
-    font-size: 2em;
+/* Card que ocupa amplada completa del contenidor i alçada mínima igual */
+.form-card {
+    width: 100%;
+    border-radius: 12px;
+    box-sizing: border-box;
+    min-height: 300px; /* alçada mínima igual per uniformitat */
 }
 
-.sections-container {
+/* Grup de botons */
+.button-group {
     display: flex;
-    justify-content: space-around;
-    gap: 30px;
-    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
 }
 
-.card {
-    background-color: var(--color-blanc);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 30px;
-    text-align: center;
-    flex: 1;
-    min-width: 300px;
-    max-width: 45%;
+.button-group .btn-primary,
+.button-group .btn-secondary {
+    flex: 1; /* fa que cada botó ocupi la mateixa fracció de l'espai */
+    min-width: unset; /* per evitar conflictes */
+    padding: 0.75rem 0; /* ajusta padding lateral per evitar scroll */
     box-sizing: border-box;
 }
 
-.card h3 {
-    color: var(--color-blau-escola);
-    margin-top: 0;
-    font-size: 1.5em;
+/* Hover botons sense canviar mida */
+.button-group .btn-primary:hover,
+.button-group .btn-secondary:hover {
+    background-color: #5a8ac4; /* un blau més fosc, suau */
+    border-color: #5a8ac4;
+    color: white;
+    box-shadow: none;
 }
 
-.card p {
-    color: var(--color-gris-text);
-    margin-bottom: 20px;
+/* Ordre botons Cancel·la i Crear */
+.button-group .btn-secondary {
+    order: 0;
+}
+.button-group .btn-primary {
+    order: 1;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(108, 160, 220, 0.3);
 }
 
-.btn {
-    display: inline-block;
-    background-color: var(--color-groc-accent);
-    color: var(--color-blau-escola);
-    padding: 12px 25px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
+/* Botons fixos a baix, sense solapar el footer */
+.fixed-buttons {
+    position: fixed;
+    bottom: 55px; /* 55px és l'alçada del footer per separar els botons del footer */
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 15px 20px;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    z-index: 1100; /* ha d'estar per sobre del footer */
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Estil botons fixos, mateix blau suau */
+.fixed-buttons .btn-primary {
+    background-color: var(--color-blau-escola);
+    border-color: var(--color-blau-escola);
+    color: white;
+    font-weight: 600;
     transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-    background-color: #FFC107;
-    color: var(--color-blau-escola);
+.fixed-buttons .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
-/* Responsivitat bàsica */
+.fixed-buttons .btn-primary:hover {
+    background-color: #5a8ac4;
+    border-color: #5a8ac4;
+}
+
+.fixed-buttons .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Responsivitat */
 @media (max-width: 768px) {
     .sections-container {
         flex-direction: column;
@@ -152,8 +183,87 @@ footer {
     }
     .card {
         max-width: 90%;
+        margin-bottom: 20px;
+    }
+    .row.justify-content-center {
+        max-width: 100%;
+        padding: 15px 0;
+    }
+    .card-body .btn {
+        margin-top: 5px;
     }
     .header-title h1 {
         font-size: 1.4em;
+    }
+    .col-md-6, .col-lg-4 {
+        max-width: 100%;
+    }
+    .button-group-custom .custom-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Padding perquè no quedi sota els botons fixos */
+.schools-list-container {
+    padding-bottom: 120px; /* més gran que altura footer+botons per evitar solapaments */
+}
+
+.sections-container {
+    margin-top: 30px; /* perquè estiguin més baix */
+    display: flex; /* assegurem flexbox */
+    justify-content: space-between;
+    gap: 20px; /* espai entre cards */
+    flex-wrap: wrap; /* per responsivitat */
+}
+
+.school-card, .student-card {
+    flex: 1 1 48%; /* ocupa 48% i s'adapta */
+    background-color: var(--color-blanc);
+    padding: 20px;
+    border-radius: 12px;
+    min-height: 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    color: var(--color-gris-text);
+}
+
+.school-card h3, .student-card h3 {
+    margin-bottom: 1rem;
+}
+
+.school-card p, .student-card p {
+    flex-grow: 1; /* empenta botó cap a baix */
+    margin-bottom: 1rem;
+}
+
+.mt-auto a.btn {
+    display: inline-block;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    background-color: var(--color-blau-escola);
+    color: var(--color-blanc);
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(108, 160, 220, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.mt-auto a.btn:hover {
+    background-color: #5a8ac4;
+    color: var(--color-blanc);
+}
+
+/* Responsive per a mòbils */
+@media (max-width: 768px) {
+    .sections-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .school-card, .student-card {
+        flex: 1 1 100%;
+        min-height: auto;
     }
 }

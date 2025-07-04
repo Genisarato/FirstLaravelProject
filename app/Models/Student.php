@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Student extends Model
 {
-    protected $appends = [
+    protected $fillable = [
         'name',
         'surname',
         'birthdate',

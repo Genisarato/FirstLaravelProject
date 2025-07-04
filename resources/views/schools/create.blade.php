@@ -9,7 +9,7 @@
                 Crea una nova escola
             </h2>
 
-            <form method="POST" action="{{ route('schools.store') }}" id="schoolForm">
+            <form method="POST" action="{{ route('schools.store') }}" enctype="multipart/form-data" id="schoolForm">
                 @csrf
 
                 {{-- Nom --}}
@@ -44,9 +44,12 @@
 
                 {{-- Logo (ruta o URL) --}}
                 <div class="mb-4">
-                    <label for="logo_path" class="form-label">Ruta del logo (opcional)</label>
-                    <input type="text" class="form-control form-control-lg" id="logo_path" name="logo_path" maxlength="255" value="{{ old('logo_path') }}">
+                    <label for="logo" class="form-label">Fitxer del logo(opcional)</label>
+                    <input type="file" class="form-control form-control-lg" id="logo" name="logo">
                 </div>
+                @error('logo')
+                    <div class="text-danger mt-1">{{ $message }}</div>
+                @enderror
             </form>
         </div>
 

@@ -16,8 +16,8 @@ class StudentController extends Controller
      */
     public function index(): View
     {
-        $students = Student::all();
-        return view('student.index', compact('students'));
+        $students = Student::with('school')->paginate(10);
+        return view('students.index', compact('students'));
     }
 
     /**
@@ -25,7 +25,8 @@ class StudentController extends Controller
      */
     public function create(): View
     {
-        return view('student.create');
+        $schools = School::all(); //
+        return view('students.create', compact('schools'));
     }
 
     /**
@@ -42,7 +43,7 @@ class StudentController extends Controller
         ]);
 
         $student = Student::create($validatedData);
-        return redirect()->route('student.show', $student->id)->with('success', 'Estudiant creat amb èxit.');
+        return redirect()->route('students.show', $student->id)->with('success', 'Estudiant creat amb èxit.');
     }
 
     /**
@@ -50,7 +51,7 @@ class StudentController extends Controller
      */
     public function show(Student $student): View
     {
-        return view('student.show', compact('student'));
+        return view('students.show', compact('student'));
     }
 
     /**
@@ -58,8 +59,8 @@ class StudentController extends Controller
      */
     public function edit(Student $student): View
     {
-        $school = School::all(); //
-        return view('student.edit', compact('student', 'student')); // <-- La vista ha de ser 'student.edit'
+        $schools = School::all(); //
+        return view('students.update', compact('student', 'schools')); // <-- La vista ha de ser 'student.edit'
     }
 
     /**

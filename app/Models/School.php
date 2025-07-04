@@ -14,6 +14,7 @@ class School extends Model
         'email',
         'phone',
         'website',
+        'logo_path',
     ];
 
     public function students(): HasMany

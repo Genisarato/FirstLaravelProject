@@ -7,6 +7,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+//use Intervention\Image\Laravel\Facades\Image;
+
 
 class SchoolController extends Controller
 {
@@ -15,7 +18,7 @@ class SchoolController extends Controller
      */
     public function index(): View
     {
-        $schools = School::all();
+        $schools = School::paginate(10);
         return view('schools.index', compact('schools'));
     }
 
@@ -36,11 +39,22 @@ class SchoolController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'logo_path' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:20', //
-            'website' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:20', 
+            'website' => 'nullable|url|max:255',
+            'logo' => 'nullable|image|mimes:jpeg,jpg,png|max:2048|dimensions:min_width=0,min_height=0,max_width=300,max_height=300',
         ]);
+
+
+
+        if ($request->hasFile('logo')) {
+            // Opcional: Eliminar el logo antiguo si existe
+
+            $path = $request->file('logo')->store('logos', 'public');
+            $validatedData['logo_path'] = $path;
+            unset($validatedData['logo']);
+        }
+
         $school = School::create($validatedData);
         return redirect()->route('schools.show', $school->id)->with('success', 'Escola creada amb èxit.');
     }
@@ -70,11 +84,23 @@ class SchoolController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'logo_path' => 'nullable|string|max:255',
             'email' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20', //
-            'website' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:20', 
+            'website' => 'nullable|url|max:255',
+            'logo' => 'nullable|image|mimes:jpeg,jpg,png|max:2048|dimensions:min_width=0,min_height=0,max_width=300,max_height=300',
         ]);
+
+        if ($request->hasFile('logo')) {
+            
+            if ($school->logo_path){
+                Storage::disk('public')->delete($school->logo_path);
+                $school->logo_path = null;
+            }
+            $path = $request->file('logo')->store('logos', 'public');
+            $validatedData['logo_path'] = $path;
+            unset($validatedData['logo']);
+        }
+
         $school->update($validatedData);
         return redirect()->route('schools.index')->with('success', 'Escola actualtizada correctament.');
 
